@@ -5,6 +5,7 @@ using UnityEngine;
 public class Floater : MonoBehaviour
 {
     public Rigidbody rigidBody;
+    public float submergeHeight;
     public float depthBeforeSubmerged = 1f;
     public float displacementAmount = 3f;
     // Start is called before the first frame update
@@ -22,10 +23,10 @@ public class Floater : MonoBehaviour
     private void FixedUpdate()
     {
         float waveHeight = WaveManager.instance.GetWaveHeight(transform.position.x);
-        if (transform.position.y < waveHeight)
+        if (transform.position.y < waveHeight+ submergeHeight)
         {
-            float displacementMultiplier = Mathf.Clamp01((waveHeight -transform.position.y) / depthBeforeSubmerged) * displacementAmount;
-            rigidBody.AddForce(new Vector3(0f, Mathf.Abs(Physics.gravity.y) * displacementMultiplier, 0f), ForceMode.Acceleration);
+            float displacementMultiplier = Mathf.Clamp01(((waveHeight +submergeHeight) -transform.position.y) / depthBeforeSubmerged) * displacementAmount;
+            rigidBody.AddForce(new Vector3(0f,  Mathf.Abs(Physics.gravity.y) * displacementMultiplier, 0f), ForceMode.Acceleration);
         }
 
     }
