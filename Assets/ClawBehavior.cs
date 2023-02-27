@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ClawBehavior : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class ClawBehavior : MonoBehaviour
     private bool clawMove = false;
     private bool intialMov = true;
     private bool nextMov = false;
-    
+
+    [SerializeField] public GameObject _scoreText;
+    int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -56,14 +59,16 @@ public class ClawBehavior : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider coll) {
-        if (coll.tag == "Prawn") {
+        if (coll.gameObject.tag == "Prawn")
+        {
             Destroy(coll.gameObject);
+            IncrementScore();
         }
     }
 
-    void OnCollisionEnter(Collision coll) {
-        if (coll.gameObject.tag == "Prawn") {
-            Destroy(coll.gameObject);
-        }
+    void IncrementScore()
+    {
+       score++;
+       _scoreText.GetComponent<TextMeshProUGUI>().text = "x" + score;
     }
 }
