@@ -69,6 +69,6 @@ public class ClawBehavior : MonoBehaviour
     void IncrementScore()
     {
        score++;
-       _scoreText.GetComponent<TextMeshProUGUI>().text = "x" + score;
+       _scoreText.GetComponent<TextMeshProUGUI>().text = "x " + score;
     }
 }
